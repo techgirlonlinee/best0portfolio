@@ -1,41 +1,134 @@
+<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>/ᐠ｡ꞈ｡ᐟ\</title>
-		<style>
-			@media (max-width: 500px) {
-				.main-text p {
-					width: 75vw !important;
-				}
-			}
-		</style>
-	</head>
-	<body style="display: flex">
-		<div
-			class="main-text"
-			style="
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				text-align: center;
-				width: 100%;
-			"
-		>
-			<p
-				style="
-				       font-family: 'Times New Roman', serif;
-					width: 36vw;
-					display: flex;
-					justify-content: center;
-					line-height: 1.3;
-				"
-			>
-				Multidisciplinary designer with background in coding and politics.
-				Interested in culture, furniture, and fashion. Currently producing
-				ambient music for fun.
-			</p>
-		</div>
-	</body>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>/ᐠ｡ꞈ｡ᐟ\</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="main-text">
+        <p>
+            Multidisciplinary designer with background in coding and politics.
+            Interested in culture, furniture, and fashion. Currently producing
+            ambient music for fun.
+        </p>
+    </div>
+    <a href="" class="contact">(email me, if u must)</a>
+<div class="section-wrap">
+    <section class="music">
+        <h2 class="category-title">(Selected mix)</h2>
+        <a href="https://soundcloud.com/bangkokcommunityradio/slum-disco-orbits-around-2" target="_blank">Slum Disco guest mix</a><br>
+        <!-- <a href="https://www.mixcloud.com/refugeworldwide/audio-coco-wong-echo-a4anxiety-01-aug-2023/" target="_blank">Refuge Worldwide</a> -->
+    </section>
+    <section class="project-list">
+        <h2 class="category-title">(Personal projects)</h2>
+        <div class="project-wrapper">
+            <h3 class="project-title">‘Against the Clock’ (2021)</h3>
+            <div class="project-content">
+                <img src="/landing/clock.png" alt="Description of image">
+                <p>Contemplative work that challenges the presentation of a conveniently-read clock, forcing the viewer to re-think the way we read time and its implications.</p>
+                <p>
+                    Our current state of neoliberal society is driven by structured time intervals where there is an expectation to exhaust all labours and resources to produce as much and as fast as possible. Learned from an early age, timekeeping became an internalised process to keep ourselves in-check for efficiency. This learned-instinctiveness has turned us into docile bodies. In order to regain power that has been stripped from us, we need to confront the pervasive mechanism that conveniently enabled us to internalise the apparatus of control that fuel our need to produce. 
+                </p>
+                <p>Role: Creative direction, Creative coding</p>
+            </div>
+        </div>
+        <div class="project-wrapper">
+            <a href="https://inrelation.me/" target="_blank" class="project-title">‘In Relation’ (2020)</a>
+            <div class="project-content">
+                <p>Interactive experiment exploring how the individual places themselves in relation to others through
+                    the generated pattern of touch.</p>
+                <p>Role: Interaction design, Creative coding</p>
+            </div>
+        </div>
+        <div class="project-wrapper">
+            <a href="https://herma.space/" target="_blank" class="project-title">‘Herma’ (2019)</a>
+            <div class="project-content">
+                <p>Immersive & contemplative website exploring gender fluidity beyond binary conceptions using sound and motion engagement.</p>
+                <p>Role: Interaction design, Creative coding</p>
+            </div>
+        </div>
+    </section>
+    <section class="project-list">
+        <h2 class="category-title">(Selected works)</h2>
+        <div class="project-wrapper">
+            <a href="https://lab3.space/" target="_blank" class="project-title">Lab3</a>
+            <div class="project-content">
+                <p>Community website where music professionals can learn more about Web3 technologies like NFTs, DAOs, and ERC20 tokens, exchange best practices with experts and aficionados, and start their own Web3 experiments.</p>
+                <p>Role: Visual, motion, interaction design</p>
+            </div>
+        </div>
+        <div class="project-wrapper">
+            <a href="https://alexenscoe.com/" target="_blank" class="project-title">Alex Enscoe</a>
+            <div class="project-content">
+                <p>Immersive & contemplative website exploring gender fluidity beyond binary conceptions using sound and motion engagement.</p>
+                <p>Role: Interaction design, Creative coding</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+    const paragraph = document.querySelector('.main-text p');
+
+    document.addEventListener('mousemove', function (event) {
+        const rect = paragraph.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        const radian = Math.atan2(event.clientY - centerY, event.clientX - centerX);
+        const rotation = radian * (180 / Math.PI) + 180;
+
+        paragraph.style.transform = 'rotate(' + rotation + 'deg)';
+    });
+
+    const titles = document.querySelectorAll('.project-title');
+
+    titles.forEach(function (title) {
+        let timeout;
+
+        title.addEventListener('mouseover', function () {
+            const content = this.nextElementSibling;
+            if (content) {
+                clearTimeout(timeout);  // Clear any existing timeout
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+
+        title.addEventListener('mouseout', function (event) {
+            const content = this.nextElementSibling;
+            if (content && !content.contains(event.relatedTarget) && event.relatedTarget !== this) {
+                timeout = setTimeout(function () {
+                    content.style.maxHeight = "0px";
+                }, 300);
+            }
+        });
+    });
+
+    // Delay activation of our scroll listener by 1 second (1000ms).
+    setTimeout(activateScrollListener, 0);
+});
+
+function activateScrollListener() {
+    let userScrolled = false;
+
+    window.addEventListener('wheel', function () {
+        if (!userScrolled) {
+            const sectionWrap = document.querySelector('.section-wrap');
+            sectionWrap.style.transform = 'translateY(16px)';
+            userScrolled = true;
+            // Remove the event listener after the first scroll to prevent it from firing multiple times.
+            window.removeEventListener('wheel', arguments.callee);
+        }
+    });
+}
+
+    </script>
+</body>
+
 </html>
