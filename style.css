@@ -32,14 +32,15 @@ a.contact {
     font-family: 'Times New Roman', Times, serif;
 }
 /* wrapper */
-/* .section-wrap {
-    transform: translateY(100vh);
-    transition: transform 0.4s ease;
+.section-wrap {
+    /* transform: translateY(100vh); */
+    margin-top: 100vh;
+    transition: margin 0.5s ease;
 }
 
 .section-wrap > :last-child {
     margin-bottom: 100vh;
-} */
+}
 
 /* project */
 
