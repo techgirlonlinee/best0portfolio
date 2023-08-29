@@ -103,4 +103,13 @@ p { max-width: 580px;}
         width: 75vw !important;
         transform: rotate(-90deg);
     }
+
+    h2 {
+        margin-bottom: 4px;
+        margin-top: 24px;
+    }
+
+    .project-wrapper {
+        margin-bottom: 8px;
+    }
 }
