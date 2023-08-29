@@ -1,6 +1,6 @@
 body, html {
     height: 100%;
-    margin: 0 12px;
+    margin: 12px 12px;
     font-family: 'Times New Roman', serif;
 }
 
@@ -100,5 +100,6 @@ p { max-width: 580px;}
 @media (max-width: 500px) {
     .main-text p {
         width: 75vw !important;
+        transform: rotate(-90deg);
     }
 }
