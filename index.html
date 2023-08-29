@@ -17,7 +17,7 @@
             ambient music for fun.
         </p>
     </div>
-    <a href="" class="contact">(email me, if u must)</a>
+    <a href="mailto:hi@arayaaa.com" class="contact">(email me, if u must)</a>
 <div class="section-wrap">
     <section class="music">
         <h2 class="category-title">(Selected mix)</h2>
@@ -110,23 +110,23 @@
         });
     });
 
-    // Delay activation of our scroll listener by 1 second (1000ms).
-    setTimeout(activateScrollListener, 0);
+    // // Delay activation of our scroll listener by 1 second (1000ms).
+    // setTimeout(activateScrollListener, 0);
 });
 
-function activateScrollListener() {
-    let userScrolled = false;
+// function activateScrollListener() {
+//     let userScrolled = false;
 
-    window.addEventListener('wheel', function () {
-        if (!userScrolled) {
-            const sectionWrap = document.querySelector('.section-wrap');
-            sectionWrap.style.transform = 'translateY(16px)';
-            userScrolled = true;
-            // Remove the event listener after the first scroll to prevent it from firing multiple times.
-            window.removeEventListener('wheel', arguments.callee);
-        }
-    });
-}
+//     window.addEventListener('wheel', function () {
+//         if (!userScrolled) {
+//             const sectionWrap = document.querySelector('.section-wrap');
+//             sectionWrap.style.transform = 'translateY(16px)';
+//             userScrolled = true;
+//             // Remove the event listener after the first scroll to prevent it from firing multiple times.
+//             window.removeEventListener('wheel', arguments.callee);
+//         }
+//     });
+// }
 
     </script>
 </body>
