@@ -34,6 +34,11 @@ a.contact {
 .section-wrap {
     transform: translateY(calc(100vh + 24px));  
     transition: transform 0.4s ease;
+
+    scroll-snap-type: y mandatory; /* Enable vertical snapping */
+
+    margin: 0;
+    padding: 0;
 }
 
 .section-wrap > :last-child {
@@ -42,6 +47,8 @@ a.contact {
 
 .project-list {
     z-index: 2; 
+
+    scroll-snap-align: start; /* Snap the start of this element */
 }
 
 h2 {
@@ -58,7 +65,7 @@ h2 {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 72px;
     font-weight: 400;
-    letter-spacing: -0.5;
+    line-height: 1;
     margin: 0;
     width: fit-content;
     text-decoration: none;
@@ -109,7 +116,7 @@ p { max-width: 580px;}
 @media (max-width: 500px) {
     .main-text p {
         width: 75vw !important;
-        transform: rotate(-90deg);
+        /* transform: rotate(-90deg); */
     }
 
     h2 {
@@ -119,5 +126,12 @@ p { max-width: 580px;}
 
     .project-wrapper {
         margin-bottom: 8px;
+    }
+    .project-title{
+        line-height: 1.1;
+    }
+
+    a {
+        line-height: 0.95;
     }
 }
