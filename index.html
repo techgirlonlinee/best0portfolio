@@ -21,7 +21,12 @@
 <div class="section-wrap">
     <section class="music">
         <h2 class="category-title">(Selected mix)</h2>
-        <a href="https://soundcloud.com/bangkokcommunityradio/slum-disco-orbits-around-2" target="_blank">Slum Disco guest mix</a><br>
+        <div class="project-wrapper">
+            <a href="https://soundcloud.com/bangkokcommunityradio/slum-disco-orbits-around-2" target="_blank" class="project-title">Slum Disco guest mix</a>
+            <div class="project-content">
+                <p>An hour of textured soundscapes and atmospheric compositions through recent releases and nostalgic ambient gems</p>
+            </div>
+        </div>
         <!-- <a href="https://www.mixcloud.com/refugeworldwide/audio-coco-wong-echo-a4anxiety-01-aug-2023/" target="_blank">Refuge Worldwide</a> -->
     </section>
     <section class="project-list">
@@ -75,6 +80,7 @@
     let startY;
     let isScrolling = false;
     let hasSnapped = false;
+    let snapCompleted = false;  // New variable to track if snap has been completed
 
     document.addEventListener('DOMContentLoaded', function () {
         
@@ -84,17 +90,16 @@
         }
         window.scrollTo(0, 0);
 
-        // Rotate main text for mobile devices on first appearance
-        if (window.innerWidth <= 500) {
-        const paragraph = document.querySelector('.main-text p');
-        const randomRotation = (Math.random() * 360) - 180; // Will generate a value between -180 and 180
-        paragraph.style.transform = `rotate(${randomRotation}deg)`;
-    }
-
-
         // Set initial position of the section-wrap
         const sectionWrap = document.querySelector('.section-wrap');
         sectionWrap.style.transform = 'translateY(calc(100vh + 24px))';
+
+        // Rotate main text for mobile devices on first appearance
+        if (window.innerWidth <= 500) {
+            const paragraph = document.querySelector('.main-text p');
+            const randomRotation = (Math.random() * 360) - 180; // Will generate a value between -180 and 180
+            paragraph.style.transform = `rotate(${randomRotation}deg)`;
+        }
 
         // Mouse movement effect on paragraph
         const paragraph = document.querySelector('.main-text p');
@@ -129,26 +134,26 @@
         });
 
         if (window.innerWidth <= 500) {
-            // For mobile: Disable default touch scrolling
+            // For mobile: Disable default touch scrolling initially
             document.body.style.touchAction = "none";
 
             // Track the starting Y position of a touch
             window.addEventListener('touchstart', function (event) {
-                if (!hasSnapped) {
+                if (!snapCompleted) {
                     startY = event.touches[0].clientY;
                     isScrolling = true;
                 }
             });
 
             window.addEventListener('touchmove', function (event) {
-                if (isScrolling && !hasSnapped) {
+                if (!snapCompleted) {
                     const currentY = event.touches[0].clientY;
                     const isScrollingDown = currentY < startY;
 
                     if (isScrollingDown) {
-                        sectionWrap.style.transform = 'translateY(-1px)';
-                        hasSnapped = true;
-                        isScrolling = false;
+                        sectionWrap.style.transform = 'translateY(24px)';
+                        snapCompleted = true; // Mark snap as completed
+                        document.body.style.touchAction = "";  // Enable default touch scrolling
                     }
                 }
             });
@@ -178,7 +183,15 @@
 
         window.addEventListener('wheel', scrollHandler);
     }
+
 </script>
+
+
+
+
+
+
+
 
 
 </body>
