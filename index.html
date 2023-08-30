@@ -71,65 +71,89 @@
         </div>
     </section>
 </div>
-
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-    const paragraph = document.querySelector('.main-text p');
+    document.addEventListener('DOMContentLoaded', function () {
+        // Force the browser to start at the top after a refresh
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+        
+        // Set initial position of the section-wrap
+        const sectionWrap = document.querySelector('.section-wrap');
+        sectionWrap.style.transform = 'translateY(calc(100vh + 24px))';
+        
+        // Initialize our scroll snap effect
+        activateScrollListener();
 
-    document.addEventListener('mousemove', function (event) {
-        const rect = paragraph.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
+        // Mouse movement effect on paragraph
+        const paragraph = document.querySelector('.main-text p');
+        document.addEventListener('mousemove', function (event) {
+            const rect = paragraph.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
 
-        const radian = Math.atan2(event.clientY - centerY, event.clientX - centerX);
-        const rotation = radian * (180 / Math.PI) + 180;
+            const radian = Math.atan2(event.clientY - centerY, event.clientX - centerX);
+            const rotation = radian * (180 / Math.PI) + 180;
 
-        paragraph.style.transform = 'rotate(' + rotation + 'deg)';
-    });
+            paragraph.style.transform = 'rotate(' + rotation + 'deg)';
+        });
 
-    const titles = document.querySelectorAll('.project-title');
+        // Hover effect on project titles using the wrapper
+        const projectWrappers = document.querySelectorAll('.project-wrapper');
+        projectWrappers.forEach(function (wrapper) {
+            let timeout;
+            const title = wrapper.querySelector('.project-title');
+            const content = title.nextElementSibling;
 
-    titles.forEach(function (title) {
-        let timeout;
-
-        title.addEventListener('mouseover', function () {
-            const content = this.nextElementSibling;
-            if (content) {
+            wrapper.addEventListener('mouseenter', function () {
                 clearTimeout(timeout);  // Clear any existing timeout
                 content.style.maxHeight = content.scrollHeight + "px";
-            }
-        });
+            });
 
-        title.addEventListener('mouseout', function (event) {
-            const content = this.nextElementSibling;
-            if (content && !content.contains(event.relatedTarget) && event.relatedTarget !== this) {
+            wrapper.addEventListener('mouseleave', function () {
+                clearTimeout(timeout);  // Clear any existing timeout
                 timeout = setTimeout(function () {
                     content.style.maxHeight = "0px";
-                }, 300);
-            }
+                }, 300); // Slight delay to add a buffer
+            });
         });
     });
 
-    // Delay activation of our scroll listener by 1 second (1000ms).
-    // setTimeout(activateScrollListener, 0);
-});
+    // Scroll Snap behavior
+    function activateScrollListener() {
+        let userScrolled = false;
 
-// function activateScrollListener() {
-//     let userScrolled = false;
+        function scrollHandler(event) {
+            if (!userScrolled) {
+                userScrolled = true;
 
-//     window.addEventListener('wheel', function () {
-//         if (!userScrolled) {
-//             const sectionWrap = document.querySelector('.section-wrap');
-//             // sectionWrap.style.transform = 'translateY(16px)';
-//             sectionWrap.style.marginTop = '24px';
-//             userScrolled = true;
-//             // Remove the event listener after the first scroll to prevent it from firing multiple times.
-//             window.removeEventListener('wheel', arguments.callee);
-//         }
-//     });
-// }
+                // Determine if it's a scroll down action.
+                let isScrollingDown = false;
+                if (event instanceof WheelEvent) {
+                    isScrollingDown = event.deltaY > 0;
+                } else if (event instanceof TouchEvent && event.changedTouches && event.changedTouches[0]) {
+                    isScrollingDown = event.changedTouches[0].clientY < window.innerHeight / 2;
+                }
 
-    </script>
+                // If scrolling down, snap the .section-wrap content to the top.
+                if (isScrollingDown) {
+                    const sectionWrap = document.querySelector('.section-wrap');
+                    sectionWrap.style.transform = 'translateY(24px)';
+                }
+
+                // Remove the event listeners after the first scroll.
+                window.removeEventListener('wheel', scrollHandler);
+                window.removeEventListener('touchmove', scrollHandler);
+            }
+        }
+
+        window.addEventListener('wheel', scrollHandler);
+        window.addEventListener('touchmove', scrollHandler);
+    }
+
+</script>
+
 </body>
 
 </html>
