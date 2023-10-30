@@ -21,12 +21,16 @@
 			<section class="music">
 				<h2 class="category-title">(Selected mix)</h2>
 				<div class="project-wrapper">
-					<a
-						href="https://soundcloud.com/bangkokcommunityradio/slum-disco-orbits-around-2"
-						target="_blank"
-						class="project-title"
-						>Slum Disco guest mix</a
-					>
+					<div class="project-title">
+						<a
+							href="https://soundcloud.com/bangkokcommunityradio/slum-disco-orbits-around-2"
+							target="_blank"
+							class="desktop-link"
+							data-mobile-link="true"
+							>Slum Disco guest mix</a
+						>
+						<p class="project-title-mob">Slum Disco guest mix</p>
+					</div>
 					<div class="project-content">
 						<div class="project-descript">
 							<p>
@@ -43,12 +47,16 @@
 					</div>
 				</div>
 				<div class="project-wrapper">
-					<a
-						href="https://soundcloud.com/bangkokcommunityradio/waiting-room-22nd-october-2023"
-						target="_blank"
-						class="project-title"
-						>Waiting Room</a
-					>
+					<div class="project-title">
+						<a
+							href="https://soundcloud.com/bangkokcommunityradio/waiting-room-22nd-october-2023"
+							target="_blank"
+							class="desktop-link"
+							>Waiting Room</a
+						>
+						<p class="project-title-mob">Waiting Room</p>
+					</div>
+
 					<div class="project-content">
 						<div class="project-descript">
 							<p>
@@ -72,12 +80,16 @@
 			<section class="project-list">
 				<h2 class="category-title">(Experimental websites)</h2>
 				<div class="project-wrapper">
-					<a
-						href="https://techgirlonlinee.github.io/non-visual-gallery/"
-						target="_blank"
-						class="project-title"
-						>Non-visual gallery (2023)</a
-					>
+					<div class="project-title">
+						<a
+							href="https://techgirlonlinee.github.io/non-visual-gallery/"
+							target="_blank"
+							class="desktop-link"
+							>Non-visual gallery (2023)</a
+						>
+						<p class="project-title-mob">Non-visual gallery (2023)</p>
+					</div>
+
 					<div class="project-content">
 						<div class="project-descript">
 							<p>
@@ -98,7 +110,11 @@
 					</div>
 				</div>
 				<div class="project-wrapper">
-					<h3 class="project-title">‘Against the Clock’ (2021)</h3>
+					<div class="project-title">
+						<h3 class="desktop-link">‘Against the Clock’ (2021)</h3>
+						<p class="project-title-mob">‘Against the Clock’ (2021)</p>
+					</div>
+
 					<div class="project-content">
 						<div class="project-descript">
 							<p>
@@ -124,9 +140,16 @@
 					</div>
 				</div>
 				<div class="project-wrapper">
-					<a href="https://inrelation.me/" target="_blank" class="project-title"
-						>‘In Relation’ (2020)</a
-					>
+					<div class="project-title">
+						<a
+							href="https://inrelation.me/"
+							target="_blank"
+							class="desktop-link"
+							>‘In Relation’ (2020)</a
+						>
+						<p class="project-title-mob">‘In Relation’ (2020)</p>
+					</div>
+
 					<div class="project-content">
 						<div class="project-descript">
 							<p>
@@ -143,9 +166,13 @@
 					</div>
 				</div>
 				<div class="project-wrapper">
-					<a href="https://herma.space/" target="_blank" class="project-title"
-						>‘Herma’ (2019)</a
-					>
+					<div class="project-title">
+						<a href="https://herma.space/" target="_blank" class="desktop-link"
+							>‘Herma’ (2019)</a
+						>
+						<p class="project-title-mob">‘Herma’ (2019)</p>
+					</div>
+
 					<div class="project-content">
 						<div class="project-descript">
 							<p>
@@ -164,9 +191,13 @@
 			<section class="project-list">
 				<h2 class="category-title">(Selected works)</h2>
 				<div class="project-wrapper">
-					<a href="https://lab3.space/" target="_blank" class="project-title"
-						>Lab3</a
-					>
+					<div class="project-title">
+						<a href="https://lab3.space/" target="_blank" class="desktop-link"
+							>Lab3</a
+						>
+						<p class="project-title-mob">Lab3</p>
+					</div>
+
 					<div class="project-content">
 						<div class="project-descript">
 							<p>
@@ -184,12 +215,16 @@
 					</div>
 				</div>
 				<div class="project-wrapper">
-					<a
-						href="https://alexenscoe.com/"
-						target="_blank"
-						class="project-title"
-						>Alex Enscoe</a
-					>
+					<div class="project-title">
+						<a
+							href="https://alexenscoe.com/"
+							target="_blank"
+							class="desktop-link"
+							>Alex Enscoe</a
+						>
+						<p class="project-title-mob">Alex Enscoe</p>
+					</div>
+
 					<div class="project-content">
 						<div class="project-descript">
 							<p>
@@ -206,128 +241,6 @@
 				</div>
 			</section>
 		</div>
-		<script>
-			let startY;
-			let isScrolling = false;
-			let hasSnapped = false;
-			let snapCompleted = false; // New variable to track if snap has been completed
-
-			document.addEventListener("DOMContentLoaded", function () {
-				// Force the browser to start at the top after a refresh
-				if ("scrollRestoration" in history) {
-					history.scrollRestoration = "manual";
-				}
-				window.scrollTo(0, 0);
-
-				// Set initial position of the section-wrap
-				const sectionWrap = document.querySelector(".section-wrap");
-				sectionWrap.style.transform = "translateY(calc(100vh + 24px))";
-
-				// Rotate main text for mobile devices on first appearance
-				if (window.innerWidth <= 500) {
-					const paragraph = document.querySelector(".main-text p");
-					const randomRotation = Math.random() * 360 - 180; // Will generate a value between -180 and 180
-					paragraph.style.transform = `rotate(${randomRotation}deg)`;
-				}
-
-				// Mouse movement effect on paragraph
-				const paragraph = document.querySelector(".main-text p");
-				document.addEventListener("mousemove", function (event) {
-					const rect = paragraph.getBoundingClientRect();
-					const centerX = rect.left + rect.width / 2;
-					const centerY = rect.top + rect.height / 2;
-
-					const radian = Math.atan2(
-						event.clientY - centerY,
-						event.clientX - centerX
-					);
-					const rotation = radian * (180 / Math.PI) + 180;
-
-					paragraph.style.transform = "rotate(" + rotation + "deg)";
-				});
-
-				// Get all links with the class 'project-title'
-				const projectTitleLinks = document.querySelectorAll(".project-title");
-
-				// Add an event listener to each link
-				projectTitleLinks.forEach(function (link) {
-					link.addEventListener("click", function (e) {
-						// Check if the window width is 500 or less (i.e., mobile)
-						if (window.innerWidth <= 500) {
-							// Prevent the default action (navigating to the linked URL)
-							e.preventDefault();
-
-							// Access the sibling project-content of the clicked project-title
-							const projectContent = link.nextElementSibling;
-							if (
-								projectContent &&
-								projectContent.classList.contains("project-content")
-							) {
-								// Toggle the display property on the associated project-content
-								if (projectContent.style.display === "flex") {
-									projectContent.style.display = "none";
-								} else {
-									projectContent.style.display = "flex";
-								}
-							}
-						}
-					});
-				});
-
-				if (window.innerWidth <= 500) {
-					// For mobile: Disable default touch scrolling initially
-					document.body.style.touchAction = "none";
-
-					// Track the starting Y position of a touch
-					window.addEventListener("touchstart", function (event) {
-						if (!snapCompleted) {
-							startY = event.touches[0].clientY;
-							isScrolling = true;
-						}
-					});
-
-					window.addEventListener("touchmove", function (event) {
-						const currentY = event.touches[0].clientY;
-						const isScrollingDown = currentY < startY;
-
-						if (!snapCompleted) {
-							if (isScrollingDown) {
-								sectionWrap.style.transform = "translateY(24px)";
-								snapCompleted = true; // Mark snap as completed
-								document.body.style.touchAction = ""; // Enable default touch scrolling
-							}
-						} else if (currentY > startY) {
-							// This checks if the user is scrolling up
-							document.body.style.touchAction = ""; // Enable default touch scrolling
-						}
-					});
-				} else {
-					// For desktop: Apply snap on scroll
-					activateScrollListener();
-				}
-			});
-
-			function activateScrollListener() {
-				let userScrolled = false;
-
-				function scrollHandler(event) {
-					if (!userScrolled) {
-						userScrolled = true;
-
-						const isScrollingDown = event.deltaY > 0;
-
-						if (isScrollingDown) {
-							document.querySelector(".section-wrap").style.transform =
-								"translateY(24px)";
-						}
-
-						// After snapping, remove event listeners.
-						window.removeEventListener("wheel", scrollHandler);
-					}
-				}
-
-				window.addEventListener("wheel", scrollHandler);
-			}
-		</script>
+		<script src="core.js"></script>
 	</body>
 </html>
