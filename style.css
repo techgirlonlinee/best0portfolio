@@ -26,29 +26,48 @@ html {
 
 a.contact {
 	position: fixed;
-	top: 24px;
+	/* top: 24px; */
+	top: 14px;
 	right: 24px;
 	font-size: 16px;
 	font-family: "Times New Roman", Times, serif;
+	z-index: 1;
 }
 
 .section-wrap {
-	transform: translateY(calc(100vh + 24px));
+	transform: translateY(calc(100vh));
 	transition: transform 0.4s ease;
 
-	scroll-snap-type: y mandatory; /* Enable vertical snapping */
+	scroll-snap-type: y mandatory;
+	overflow: hidden;
+	height: 100vh;
 
 	margin: 0;
 	padding: 0;
 }
+  
 
 .section-wrap > :last-child {
-	margin-bottom: 100vh;
+	margin-bottom: 50vh;
+}
+
+/* .section-wrap::after {
+	content: '';
+	display: block;
+	min-height: 50vh; 
+  } */
+  
+
+.section-wrap::-webkit-scrollbar {
+    display: none; /* this will hide the scrollbar in WebKit browsers */
 }
 
 .project-list {
 	z-index: 2;
+	
+}
 
+.section.music {
 	scroll-snap-align: start; /* Snap the start of this element */
 }
 

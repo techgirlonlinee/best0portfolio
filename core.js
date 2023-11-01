@@ -91,8 +91,9 @@ document.addEventListener("DOMContentLoaded", function () {
 			if (!snapCompleted) {
 				const currentY = event.touches[0].clientY;
 				if (currentY < startY) {
-					sectionWrap.style.transform = "translateY(-1px)";
+					sectionWrap.style.transform = "translateY(-11px)";
 					snapCompleted = true;
+					allowScrolling(); // Enable scrolling after snap
 					document.body.style.touchAction = "auto";
 					window.removeEventListener("touchstart", touchStartHandler);
 					window.removeEventListener("touchmove", touchMoveHandler);
@@ -105,20 +106,32 @@ document.addEventListener("DOMContentLoaded", function () {
 		activateScrollListener();
 	}
 
+
 	function activateScrollListener() {
-		let userScrolled = false;
-
-		function scrollHandler(event) {
-			if (!userScrolled) {
-				userScrolled = true;
-				const isScrollingDown = event.deltaY > 0;
-				if (isScrollingDown) {
-					sectionWrap.style.transform = "translateY(24px)";
-				}
-				window.removeEventListener("wheel", scrollHandler);
+		window.addEventListener('wheel', function (event) {
+			// When the user scrolls down and the snap has not yet completed
+			const isScrollingDown = event.deltaY > 0;
+			if (isScrollingDown && !snapCompleted) {
+				sectionWrap.style.transform = "translateY(0)";
+				snapCompleted = true; // The snap has now completed
+				
+				// As soon as snap completes, enable scrolling within sectionWrap
+				allowScrolling();
+				
+				// If you only want the snap to occur once, remove the event listener
+				// window.removeEventListener('wheel', activateScrollListener);
 			}
-		}
-
-		window.addEventListener("wheel", scrollHandler);
+		});
 	}
+	
+	function allowScrolling() {
+		const sectionWrap = document.querySelector('.section-wrap');
+		sectionWrap.style.overflowY = 'auto'; // Enable vertical scrolling
+	}
+	
+	// Initialize the scroll listener when the page has loaded
+	activateScrollListener();
+	
+
+
 });
