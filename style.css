@@ -41,6 +41,7 @@ a.contact {
 	scroll-snap-type: y mandatory;
 	overflow: hidden;
 	height: 100vh;
+	/* height: max-content; */
 
 	margin: 0;
 	padding: 0;
@@ -48,7 +49,7 @@ a.contact {
   
 
 .section-wrap > :last-child {
-	margin-bottom: 50vh;
+	margin-bottom: 200vh;
 }
 
 /* .section-wrap::after {
@@ -58,6 +59,9 @@ a.contact {
   } */
   
 
+  .section-wrap::after {
+	height: max-content;
+  }
 .section-wrap::-webkit-scrollbar {
     display: none; /* this will hide the scrollbar in WebKit browsers */
 }
