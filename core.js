@@ -7,7 +7,8 @@ document.addEventListener("DOMContentLoaded", function () {
 	window.scrollTo(0, 0);
 
 	const sectionWrap = document.querySelector(".section-wrap");
-	sectionWrap.style.transform = "translateY(calc(100vh + 24px))";
+	// sectionWrap.style.transform = "translateY(100vh)";
+	sectionWrap.style.transform = "translateY(80vh)";
 
 	const paragraph = document.querySelector(".main-text p");
 	const randomRotation = Math.random() * 360 - 180;
@@ -106,32 +107,28 @@ document.addEventListener("DOMContentLoaded", function () {
 		activateScrollListener();
 	}
 
-
 	function activateScrollListener() {
-		window.addEventListener('wheel', function (event) {
+		window.addEventListener("wheel", function (event) {
 			// When the user scrolls down and the snap has not yet completed
 			const isScrollingDown = event.deltaY > 0;
 			if (isScrollingDown && !snapCompleted) {
 				sectionWrap.style.transform = "translateY(0)";
 				snapCompleted = true; // The snap has now completed
-				
+
 				// As soon as snap completes, enable scrolling within sectionWrap
 				allowScrolling();
-				
+
 				// If you only want the snap to occur once, remove the event listener
 				// window.removeEventListener('wheel', activateScrollListener);
 			}
 		});
 	}
-	
+
 	function allowScrolling() {
-		const sectionWrap = document.querySelector('.section-wrap');
-		sectionWrap.style.overflowY = 'auto'; // Enable vertical scrolling
+		const sectionWrap = document.querySelector(".section-wrap");
+		sectionWrap.style.overflowY = "auto"; // Enable vertical scrolling
 	}
-	
+
 	// Initialize the scroll listener when the page has loaded
 	activateScrollListener();
-	
-
-
 });
