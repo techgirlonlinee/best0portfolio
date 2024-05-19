@@ -45,8 +45,8 @@ a.contact {
 
 	margin: 0;
 	padding: 0;
+	background-color: white;
 }
-  
 
 .section-wrap > :last-child {
 	margin-bottom: 200vh;
@@ -57,18 +57,16 @@ a.contact {
 	display: block;
 	min-height: 50vh; 
   } */
-  
 
-  .section-wrap::after {
+.section-wrap::after {
 	height: max-content;
-  }
+}
 .section-wrap::-webkit-scrollbar {
-    display: none; /* this will hide the scrollbar in WebKit browsers */
+	display: none; /* this will hide the scrollbar in WebKit browsers */
 }
 
 .project-list {
 	z-index: 2;
-	
 }
 
 .section.music {
