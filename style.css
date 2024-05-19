@@ -3,6 +3,18 @@
 	font-size: 14px;
 	letter-spacing: -0.2;
 } */
+
+@font-face {
+	font-family: "Times New Roman";
+	src: url("times.woff2") format("woff2"), url("times.woff") format("woff");
+}
+
+body {
+	font-family: "Times New Roman", serif;
+	line-height: 1.25;
+	letter-spacing: -0.1px;
+}
+
 .bio {
 	max-width: 1400px;
 	margin: 0 auto;
@@ -29,6 +41,7 @@
 	text-align: center;
 	line-height: 1.3;
 	margin: 0;
+	letter-spacing: -0.2px;
 }
 
 a.contact {
