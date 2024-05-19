@@ -176,6 +176,10 @@ p.list-name {
 		width: 100%;
 	}
 
+	.project-wrap {
+		width: 100%;
+	}
+
 	.project .row {
 		display: flex;
 		justify-content: space-between;
