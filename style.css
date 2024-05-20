@@ -22,6 +22,7 @@ body {
 
 .bio-content {
 	max-width: 358px;
+	padding: 20px 0;
 }
 
 .main-text {
@@ -109,7 +110,7 @@ a {
 
 .project {
 	display: grid;
-	grid-template-columns: 3fr 2.5fr 4fr;
+	grid-template-columns: 3.6fr 2.7fr 3.4fr;
 	text-decoration: none;
 	border-top: 1px solid #e5e5e5;
 }
@@ -120,7 +121,7 @@ a {
 
 .row {
 	display: grid;
-	grid-template-columns: 3fr 1.5fr;
+	grid-template-columns: 3fr 1.4fr;
 }
 
 .project p {
