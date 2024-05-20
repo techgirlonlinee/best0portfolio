@@ -21,7 +21,8 @@ body {
 }
 
 .bio-content {
-	max-width: 358px;
+	/* max-width: 358px; */
+	max-width: 408px;
 	padding: 20px 0;
 }
 
