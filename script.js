@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			previewDescription.textContent = description;
 
 			previewSection.style.display = "block";
+			previewSection.style.marginTop = "16px";
 		});
 
 		project.addEventListener("mouseout", () => {
