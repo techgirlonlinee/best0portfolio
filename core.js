@@ -10,9 +10,20 @@ document.addEventListener("DOMContentLoaded", function () {
 	// sectionWrap.style.transform = "translateY(100vh)";
 	sectionWrap.style.transform = "translateY(80vh)";
 
+	// Set up main text with a fade transition
+	const mainText = document.querySelector(".main-text");
+	mainText.style.transition = "opacity 0.2s ease-out";
+	mainText.style.opacity = "1";
+
 	const paragraph = document.querySelector(".main-text p");
-	const randomRotation = Math.random() * 360 - 180;
-	paragraph.style.transform = `rotate(${randomRotation}deg)`;
+	// const randomRotation = Math.random() * 180 - 90;
+	// paragraph.style.transform = `rotate(${randomRotation}deg)`;
+
+	// Instead of unconditionally randomizing:
+	if (window.innerWidth <= 500) {
+		const randomRotation = Math.random() * 180 - 90;
+		paragraph.style.transform = `rotate(${randomRotation}deg)`;
+	}
 
 	function setupMobileLinks() {
 		console.log("Setting up mobile links"); // Confirm this message appears in the console
@@ -94,6 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
 				if (currentY < startY) {
 					sectionWrap.style.transform = "translateY(-11px)";
 					snapCompleted = true;
+					mainText.style.opacity = "0"; // Fade out main text on swipe
 					allowScrolling(); // Enable scrolling after snap
 					document.body.style.touchAction = "auto";
 					window.removeEventListener("touchstart", touchStartHandler);
@@ -114,6 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			if (isScrollingDown && !snapCompleted) {
 				sectionWrap.style.transform = "translateY(0)";
 				snapCompleted = true; // The snap has now completed
+				mainText.style.opacity = "0"; // Fade out main text on scroll
 
 				// As soon as snap completes, enable scrolling within sectionWrap
 				allowScrolling();
