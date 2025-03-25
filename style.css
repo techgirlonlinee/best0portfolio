@@ -310,6 +310,10 @@ p.list-name {
 		width: 100%;
 	}
 
+	.project:hover p {
+		text-decoration: none;
+	}
+
 	.project-wrap {
 		width: 100%;
 	}
