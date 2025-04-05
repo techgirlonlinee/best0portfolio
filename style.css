@@ -187,6 +187,9 @@ a {
 }
 /* Base styles */
 
+.section-wrap {
+	overflow-x: hidden;
+}
 .content {
 	max-width: 1240px;
 	margin: 0 auto;
@@ -246,6 +249,7 @@ p.list-name {
 
 .preview-container {
 	width: 35%;
+	/* width: auto; */
 	position: relative; /* Ensure absolute positioning is relative to this container */
 }
 
@@ -354,6 +358,7 @@ p.list-name {
 	.section-wrap {
 		/* padding: 12px; */
 		top: 3.5rem;
+		margin-right: 0;
 	}
 
 	nav {
