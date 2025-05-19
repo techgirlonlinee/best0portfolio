@@ -426,6 +426,10 @@ p.list-name {
 		padding-bottom: 8px;
 	}
 
+	.main-text p {
+		max-width: 342px;
+	}
+
 	.column {
 		display: none;
 	}
