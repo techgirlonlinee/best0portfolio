@@ -1,6 +1,8 @@
 let snapCompleted = false;
 
 document.addEventListener("DOMContentLoaded", function () {
+	console.log("DOM fully loaded and parsed."); // Debugging: Check if the script is running
+
 	// Prevent browser scroll restoration and reset scroll position
 	if ("scrollRestoration" in history) {
 		history.scrollRestoration = "manual";
@@ -8,115 +10,99 @@ document.addEventListener("DOMContentLoaded", function () {
 	window.scrollTo(0, 0);
 
 	const sectionWrap = document.querySelector(".section-wrap");
-	sectionWrap.style.transform = "translateY(80vh)";
-
-	// Set up main text fade transition
 	const mainText = document.querySelector(".main-text");
-	mainText.style.transition = "opacity 0.2s ease-out";
-	mainText.style.opacity = "1";
+	const asciiClouds = document.getElementById("ascii-clouds"); // Reference ASCII clouds
+	const overviewLink = document.querySelector(".overview-link"); // Reference the overview link
 
-	const paragraph = document.querySelector(".main-text p");
+	console.log("sectionWrap:", sectionWrap); // Debugging: Check if sectionWrap is selected
+	console.log("mainText:", mainText); // Debugging: Check if mainText is selected
+	console.log("asciiClouds:", asciiClouds); // Debugging: Check if asciiClouds is selected
+	console.log("overviewLink:", overviewLink); // Debugging: Check if overviewLink is selected
 
-	// Apply random rotation on mobile devices
-	if (window.innerWidth <= 500) {
-		const randomRotation = Math.random() * 180 - 90;
-		paragraph.style.transform = `rotate(${randomRotation}deg)`;
-	}
-
-	// Optional: Setup mobile links (if any exist)
-	function setupMobileLinks() {
-		const mobileLinks = document.querySelectorAll("a.mob-link");
-		if (mobileLinks.length === 0) {
-			console.log("No mobile links found");
-			return;
+	// Dynamically add a CSS rule with !important
+	function addAsciiOpacityRule(opacity) {
+		let styleElement = document.getElementById("dynamic-styles");
+		if (!styleElement) {
+			styleElement = document.createElement("style");
+			styleElement.id = "dynamic-styles";
+			document.head.appendChild(styleElement);
 		}
-	}
-	setupMobileLinks();
 
-	// Optional: Toggle project titles on mobile (if applicable)
-	function setupMobileProjectTitlesToggle() {
-		const mobileProjectTitles = document.querySelectorAll(
-			"p.project-title-mob"
+		// Remove previous rule if it exists
+		if (styleElement.sheet.cssRules.length > 0) {
+			styleElement.sheet.deleteRule(0);
+		}
+
+		// Add new rule with the desired opacity
+		styleElement.sheet.insertRule(
+			`#ascii-clouds { opacity: ${opacity} !important; transition: opacity 0.5s ease-out !important; }`,
+			0
 		);
-		mobileProjectTitles.forEach((title) => {
-			let touchStartY = 0;
-			let touchEndY = 0;
-			const threshold = 10; // Tap vs. scroll threshold
 
-			title.addEventListener("touchstart", (event) => {
-				touchStartY = event.touches[0].clientY;
-			});
-			title.addEventListener("touchend", (event) => {
-				touchEndY = event.changedTouches[0].clientY;
-				if (Math.abs(touchStartY - touchEndY) < threshold) {
-					const projectWrapper = title.closest(".project-wrapper");
-					const projectContent =
-						projectWrapper.querySelector(".project-content");
-					if (projectContent) {
-						const isDisplayed = projectContent.style.display === "flex";
-						projectContent.style.display = isDisplayed ? "none" : "flex";
-						projectContent.style.maxWidth = isDisplayed ? "0" : "max-content";
-					}
-				}
-			});
-		});
-	}
-	setupMobileProjectTitlesToggle();
-
-	// Desktop: Dynamic rotation based on mouse position
-	if (window.innerWidth > 500) {
-		document.addEventListener("mousemove", function (event) {
-			const rect = paragraph.getBoundingClientRect();
-			const centerX = rect.left + rect.width / 2;
-			const centerY = rect.top + rect.height / 2;
-			const radian = Math.atan2(
-				event.clientY - centerY,
-				event.clientX - centerX
-			);
-			const rotation = radian * (180 / Math.PI) + 180;
-			paragraph.style.transform = `rotate(${rotation}deg)`;
-		});
+		console.log(`ASCII clouds opacity set to: ${opacity}`);
 	}
 
-	// Mobile: Touch-based snap scrolling
-	if (window.innerWidth <= 500) {
-		document.body.style.touchAction = "none";
-		let startY;
-		const touchStartHandler = function (event) {
-			if (!snapCompleted) {
-				startY = event.touches[0].clientY;
-			}
-		};
-		window.addEventListener("touchstart", touchStartHandler);
+	// Check if the URL contains the scrollTo=projects parameter
+	const urlParams = new URLSearchParams(window.location.search);
+	const scrollTo = urlParams.get("scrollTo");
 
-		const touchMoveHandler = function (event) {
-			if (!snapCompleted) {
-				const currentY = event.touches[0].clientY;
-				if (currentY < startY) {
-					sectionWrap.style.transform = "translateY(-11px)";
-					snapCompleted = true;
-					mainText.style.opacity = "0"; // Fade out main text on swipe
-					allowScrolling();
-					document.body.style.touchAction = "auto";
-					window.removeEventListener("touchstart", touchStartHandler);
-					window.removeEventListener("touchmove", touchMoveHandler);
-				}
-			}
-		};
-		window.addEventListener("touchmove", touchMoveHandler);
+	if (scrollTo === "projects") {
+		console.log(
+			"Navigated with scrollTo=projects. Bringing section-wrap into view."
+		);
+		// Bring the section-wrap into view immediately
+		sectionWrap.style.transform = "translateY(0)";
+		mainText.style.transition = "opacity 0.1s ease-out"; // Faster fade
+		mainText.style.opacity = "0";
+
+		if (asciiClouds) {
+			addAsciiOpacityRule(0.2); // Reduce ASCII clouds opacity
+		} else {
+			console.error("ASCII clouds element not found!");
+		}
+
+		snapCompleted = true; // Mark snap as completed
 	} else {
-		activateScrollListener();
+		// Default behavior: Set initial position and transitions
+		if (sectionWrap) {
+			sectionWrap.style.transform = "translateY(80vh)";
+		}
+		if (mainText) {
+			mainText.style.transition = "opacity 0.1s ease-out"; // Faster fade
+			mainText.style.opacity = "1";
+		}
 	}
 
 	// Activate scroll-based snap on desktop
 	function activateScrollListener() {
+		let lastScrollY = window.scrollY;
+
 		window.addEventListener("wheel", function (event) {
+			const currentScrollY = window.scrollY;
+
 			if (event.deltaY > 0 && !snapCompleted) {
+				// Scrolling down
 				sectionWrap.style.transform = "translateY(0)";
 				snapCompleted = true;
+
+				// Fade out main text
 				mainText.style.opacity = "0";
-				allowScrolling();
+
+				// Reduce ASCII clouds opacity
+				addAsciiOpacityRule(0.2);
+			} else if (event.deltaY < 0 && snapCompleted) {
+				// Scrolling up
+				sectionWrap.style.transform = "translateY(80vh)";
+				snapCompleted = false;
+
+				// Restore main text opacity
+				mainText.style.opacity = "1";
+
+				// Restore ASCII clouds opacity
+				addAsciiOpacityRule(1);
 			}
+
+			lastScrollY = currentScrollY;
 		});
 	}
 
@@ -125,21 +111,61 @@ document.addEventListener("DOMContentLoaded", function () {
 		sectionWrap.style.overflowY = "auto";
 	}
 
-	// Mobile: Attach click handler to preview sections so that clicking anywhere navigates to the project link
+	// Mobile: Handle touch-based scrolling
 	if (window.innerWidth <= 500) {
-		const previewSections = document.querySelectorAll(".preview-section");
-		previewSections.forEach(function (preview) {
-			// Assumes the corresponding project anchor is the immediate previous sibling
-			const projectAnchor = preview.previousElementSibling;
-			if (projectAnchor && projectAnchor.classList.contains("project")) {
-				preview.style.cursor = "pointer";
-				preview.addEventListener("click", function () {
-					window.location.href = projectAnchor.href;
-				});
+		let startY;
+		document.body.style.touchAction = "none";
+
+		const touchStartHandler = function (event) {
+			if (!snapCompleted) {
+				startY = event.touches[0].clientY;
 			}
+		};
+
+		const touchMoveHandler = function (event) {
+			const currentY = event.touches[0].clientY;
+
+			if (!snapCompleted && currentY < startY) {
+				// Scrolling down
+				sectionWrap.style.transform = "translateY(0)";
+				snapCompleted = true;
+
+				// Fade out main text
+				mainText.style.opacity = "0";
+
+				// Reduce ASCII clouds opacity
+				addAsciiOpacityRule(0.2);
+
+				document.body.style.touchAction = "auto";
+			} else if (snapCompleted && currentY > startY) {
+				// Scrolling up
+				sectionWrap.style.transform = "translateY(80vh)";
+				snapCompleted = false;
+
+				// Restore main text opacity
+				mainText.style.opacity = "1";
+
+				// Restore ASCII clouds opacity
+				addAsciiOpacityRule(1);
+			}
+		};
+
+		window.addEventListener("touchstart", touchStartHandler);
+		window.addEventListener("touchmove", touchMoveHandler);
+	} else {
+		activateScrollListener();
+	}
+
+	// Add functionality for the overview link
+	if (overviewLink) {
+		overviewLink.addEventListener("click", (event) => {
+			sectionWrap.style.transform = "translateY(0)";
+			snapCompleted = true;
+			mainText.style.opacity = "0";
+			addAsciiOpacityRule(0.2); // Reduce ASCII clouds opacity
 		});
 	}
 
-	// (Re)Initialize scroll listener (for desktop, if needed)
+	// Activate scroll listener
 	activateScrollListener();
 });

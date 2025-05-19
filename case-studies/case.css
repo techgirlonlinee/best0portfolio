@@ -23,6 +23,42 @@ p {
 	max-width: 28rem;
 }
 
+/* ASCII Clouds Background */
+
+#ascii-clouds {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	font-family: monospace;
+	font-size: 8px;
+	line-height: 1;
+	white-space: pre;
+	color: #c7c7c7;
+	opacity: 0.2;
+	z-index: -1;
+	overflow: hidden;
+	pointer-events: none;
+	transition: opacity 0.5s ease; /* Smooth fade effect */
+}
+#ascii-clouds::before {
+	content: "";
+	position: absolute;
+	top: 0; /* Start the fade-in */
+	left: 0;
+	width: 100%;
+	height: 20vh; /* Covers the top 20% of the viewport */
+	background: linear-gradient(
+		to top,
+		rgba(255, 255, 255, 0.358) 0%,
+		/* Semi-transparent at the start */ rgba(255, 255, 255, 0.9) 40%,
+		/* Stopper point at 50% */ rgba(255, 255, 255, 1) 100%
+			/* Fully opaque at the top */
+	);
+	pointer-events: none; /* Ensure it doesn't block interaction */
+}
+
 /* Container for centered content */
 .container {
 	max-width: 1240px;
